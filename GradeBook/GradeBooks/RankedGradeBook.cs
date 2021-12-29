@@ -12,6 +12,8 @@ namespace GradeBook.GradeBooks
             Type = GradeBookType.Ranked;
         }
 
+        string notEnoughStudents = "Ranked grading requires at least 5 students with grades in order to properly calculate a student's overall grade.";
+
         public override char GetLetterGrade(double averageGrade)
         {
             int totalStudents = Students.Count;
@@ -27,6 +29,28 @@ namespace GradeBook.GradeBooks
             if (betterThanMe < fifthOfClass * 3) return 'C';
             if (betterThanMe < fifthOfClass * 4) return 'D';
             return 'F';
+        }
+
+        public override void CalculateStatistics()
+        {
+            if (Students.Count < 5)
+            {
+                Console.WriteLine(notEnoughStudents);
+                return;
+            }
+
+            base.CalculateStatistics();
+        }
+
+        public override void CalculateStudentStatistics(string name)
+        {
+            if (Students.Count < 5)
+            {
+                Console.WriteLine(notEnoughStudents);
+                return;
+            }
+
+            base.CalculateStudentStatistics(name);
         }
     }
 }
