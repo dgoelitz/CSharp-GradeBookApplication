@@ -15,6 +15,7 @@ namespace GradeBook.GradeBooks
         public override char GetLetterGrade(double averageGrade)
         {
             int totalStudents = Students.Count;
+            if (totalStudents < 5) throw new InvalidOperationException("Not enough students to calculate current grade");
             double fifthOfClass = totalStudents / 5;
             int betterThanMe = 0;
             foreach (Student student in Students)
